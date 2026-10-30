@@ -1,3 +1,44 @@
 body {
         margin: 0;
 }
+
+:root {
+  --bs-primary: #5c24cc;
+  --bs-primary-rgb: 92, 36, 204;
+}
+
+.btn-primary {
+  --bs-btn-bg: #b180ee;
+  --bs-btn-border-color: #3a2053;
+  --bs-btn-hover-bg: #934fe7;
+  --bs-btn-hover-border-color: #3a2053;
+  --bs-btn-active-bg: #eecb42;
+  --bs-btn-active-border-color: #a59b53;
+  --bs-btn-disabled-bg: #b180ee;
+  --bs-btn-disabled-border-color: #3a2053;
+
+}
+
+.title {
+        grid-area: title;
+        grid-column: center;
+}
+.hero {
+        grid-area: hero;
+}
+.footer {
+        grid-area: footer;
+}
+
+.viewer {
+  width: 100%;
+  height: 70vh;
+}
+
+.viewer canvas {
+  display: block;
+}
+
+#play-button {
+        background-color:blueviolet;
+}

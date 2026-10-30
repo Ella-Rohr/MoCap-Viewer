@@ -4,6 +4,8 @@
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>MoCap Viewer - JMU Wearable Computing Lab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
 			{
@@ -15,15 +17,22 @@
 		</script>
   </head>
   <body>
-    <div id="file-input">
-      <form id="file-form">
-        <input type="file" id="mocapFile" name="filename" accept=".glb,.gltf">
-        <button type="submit">Upload File</button>
+    <div class="title text-center my-4">
+      <h1 class="fw-bold text-primary">MoCap Viewer</h1>
+      <p class="text-muted small">JMU Wearable Computing Lab</p>
+    </div>
+    <div id="viewer" class="viewer"></div>
+    <div id="file-input" class="container bg-dark text-white rounded p-3 shadow d-flex flex-wrap justify-content-center align-items-center gap-3">
+      <form id="file-form" class="footer">
+        <label for="mocapFile" class="btn btn-primary justify-content-center">
+          Upload File
+        </label>
+        <input type="file" id="mocapFile" name="filename" accept=".glb,.gltf" style="display: none;">
       </form>
-      <div>
-        <button type="button" id="play-button" disabled>Play</button>
-        <button type="button" id="pause-button" disabled>Pause</button>
-        </div>
+      <div class="d-flex justify-content-center gap-2">
+        <button type="button" id="play-button" class="btn btn-primary" disabled>Play</button>
+        <button type="button" id="pause-button" class="btn btn-primary" disabled>Pause</button>
+      </div>
     </div>
     <script type="module" src="index.js"></script>
   </body>

@@ -6,12 +6,13 @@ import { GLTFLoader } from "jsm/loaders/GLTFLoader.js";
 const form = document.getElementById("file-form");
 const playButton = document.getElementById("play-button");
 const pauseButton = document.getElementById("pause-button");
+const container = document.getElementById("viewer");
 
 
 //RENDERER
 //set the size of the renderer with width and height
-const w = window.innerWidth;
-const h = window.innerHeight;
+const w = container.clientWidth;
+const h = container.clientHeight;
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(w, h);
 
@@ -21,8 +22,9 @@ renderer.toneMappingExposure = 1.0;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+
 //append the renderer to the HTML file
-document.body.appendChild(renderer.domElement);
+container.appendChild(renderer.domElement);
 
 //CAMERA
 const fov = 75; //75 degrees
@@ -41,6 +43,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 //controls.enableDamping = true;
 //controls.dampingFactor = 0.03;
 
+
 /*FILE UPLOAD */
 const fileInput = document.getElementById("mocapFile");
 const loader = new GLTFLoader();
@@ -48,8 +51,8 @@ let mixer = null;
 let model = null;
 let isPlaying = false;
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault(); // IMPORTANT!
+form.addEventListener("change", function(event) {
+    //event.preventDefault(); // IMPORTANT!
     const selectedFile = fileInput.files[0];
 
     if (!selectedFile) {
@@ -69,6 +72,14 @@ form.addEventListener("submit", function(event) {
             const model = gltf.scene;
             scene.add(model);
 
+            if (gltf.animations.length > 0) {
+                mixer = new THREE.AnimationMixer(model);
+                gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
+                mixer.update(0);                 // pose the skeleton at frame 0
+            }
+
+            model.updateMatrixWorld(true);
+            model.traverse((o) => { if (o.isSkinnedMesh) o.skeleton.update(); });
             const box = new THREE.Box3().setFromObject(model);
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
@@ -80,7 +91,7 @@ form.addEventListener("submit", function(event) {
             camera.position.set(
                 center.x,
                 center.y,
-                center.z + maxDimension * 2
+                center.z + maxDimension
             );
             camera.near = 0.01;
             camera.far = Math.max(1000, maxDimension * 10);
