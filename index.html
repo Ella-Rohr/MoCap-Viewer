@@ -17,12 +17,22 @@
 		</script>
   </head>
   <body>
-    <div class="title text-center my-4">
-      <h1 class="fw-bold text-primary">MoCap Viewer</h1>
-      <p class="text-muted small">JMU Wearable Computing Lab</p>
-    </div>
     <div id="viewer" class="viewer"></div>
-    <div id="file-input" class="container bg-dark text-white rounded p-3 shadow d-flex flex-wrap justify-content-center align-items-center gap-3">
+
+    <div id="info-popup" hidden>
+      <h5>MoCap Viewer Help:</h5>
+      <p>Upload a .glb file by selecting Upload File and using the play and pause buttons.</p>
+      <h6>How to pan the viewer</h6>
+      <ol>
+        <li>Hold down on the left mouse to rotate around the model.</li>
+        <li>Hold down on the right mouse to pan around the model.</li>
+        <li>Pinch or scroll to zoom in and out.</li>
+        <li>Use the Gizmo in the bottom right to rotate around the model.</li>
+      </ol>
+      <p>To close select the ? again.</p>
+    </div>
+    <div id="file-input" class="container-fluid bg-dark text-white p-3 shadow d-flex flex-wrap align-items-center gap-3">
+      <h1 class="padded-up">Mocap Viewer</h1>
       <form id="file-form" class="footer">
         <label for="mocapFile" class="btn btn-primary justify-content-center">
           Upload File
@@ -32,6 +42,12 @@
       <div class="d-flex justify-content-center gap-2">
         <button type="button" id="play-button" class="btn btn-primary" disabled>Play</button>
         <button type="button" id="pause-button" class="btn btn-primary" disabled>Pause</button>
+      </div>
+      <div class="lefting-less d-flex gap-2">
+        <button type="button" class="btn btn-primary" onclick="window.location.reload();">Clear</button>
+      </div>
+      <div class=" d-flex gap-2">
+        <button type="button" id="info-button" class="btn btn-primary">?</button>
       </div>
     </div>
     <script type="module" src="index.js"></script>

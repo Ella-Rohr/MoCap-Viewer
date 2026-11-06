@@ -2,11 +2,14 @@ import * as THREE from "three";
 //to be able to move the scene yourself
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "jsm/loaders/GLTFLoader.js";
+import { ViewHelper } from 'jsm/helpers/ViewHelper.js';
 
 const form = document.getElementById("file-form");
 const playButton = document.getElementById("play-button");
 const pauseButton = document.getElementById("pause-button");
+const infoButton = document.getElementById("info-button");
 const container = document.getElementById("viewer");
+const popup = document.getElementById("info-popup");
 
 
 //RENDERER
@@ -15,6 +18,7 @@ const w = container.clientWidth;
 const h = container.clientHeight;
 const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(w, h);
+renderer.autoClear = false;
 
 renderer.toneMapping = THREE.ACESFilmicToneMapping; // Gives a cinematic, realistic fallback
 renderer.toneMappingExposure = 1.0;
@@ -43,7 +47,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 //controls.enableDamping = true;
 //controls.dampingFactor = 0.03;
 
-
+const meow = new ViewHelper(camera, renderer.domElement);
 /*FILE UPLOAD */
 const fileInput = document.getElementById("mocapFile");
 const loader = new GLTFLoader();
@@ -148,7 +152,7 @@ form.addEventListener("change", function(event) {
 
 playButton.addEventListener("click", function() {
     if (mixer) {
-        mixer.timeScale = 1;
+        mixer.timeScale = 2;
         isPlaying = true;
         //status.textContent = "Animation playing.";
     }
@@ -160,6 +164,14 @@ pauseButton.addEventListener("click", function() {
         mixer.timeScale = 0;
         isPlaying = false;
         //status.textContent = "Animation paused.";
+    }
+});
+
+infoButton.addEventListener("click", function() {
+    if(popup.hidden) {
+        popup.hidden = false;
+    } else {
+        popup.hidden = true;
     }
 });
 
@@ -190,10 +202,25 @@ function animate() {
     const delta = clock.getDelta();
 
     if (mixer && isPlaying) {
+        mixer.timeScale = 3;
         mixer.update(delta);
     }
+      renderer.clear();
     renderer.render(scene, camera);
 
+    meow.render(renderer);
 }
+
+
+function resize() {
+  const w = container.clientWidth;
+  const h = container.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+
+window.addEventListener("resize", resize);
+resize(); // run once on load
 
 animate();
