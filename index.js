@@ -34,7 +34,7 @@ container.appendChild(renderer.domElement);
 const fov = 75; //75 degrees
 const aspect = w/h;
 const near = 0.1; //anything closer to the camera than 0.1 units stops rendering
-const far = 10;
+const far = 20;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.z = 2;
 
@@ -188,6 +188,13 @@ const mesh = new THREE.Mesh(geo, mat);
 //Add light white on the top and black on the bottom
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff)
 scene.add(hemiLight);
+
+scene.background = new THREE.Color(0x333333);
+
+const size = 20;
+const divisions = 20;
+const gridHelper = new THREE.GridHelper(size, divisions, 0x444444, 0x888888);
+scene.add(gridHelper);
 
 const dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
 dirLight.position.set(5, 10, 7);
