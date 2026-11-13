@@ -29,12 +29,13 @@
         <li>Pinch or scroll to zoom in and out.</li>
         <li>Use the Gizmo in the bottom right to rotate around the model.</li>
       </ul>
-      <h6>Load Model at Origin</h6>
-      <p>The viewer Automatically will offset another model
-        if you choose to add one to the scene.
-        If you would prefer for both models to start at
-        the origin select the "Load model at origin" box and
-        upload a new file.</p>
+      <h6>Model Location Options</h6>
+      <p>Select a mode <em>before</em> uploading a model to the site.</p>
+      <ul>
+        <li>As recorded: Places the model in the location it was in relation to the filming of the original take.</li>
+        <li>Origin: Places the model at the origin (0,0) of the scene</li>
+        <li>Auto offset: Places a secondary model at an offset of 1.5 to the first model</li>
+      </ul>
       <h6>Speed</h6>
       <p>To increase or decrease the speed of the animation, input any number into the "Speed" box. The default value is 1.</p>
       <p>To close select the ? again.</p>
@@ -72,13 +73,10 @@
       </div>
 
       <!--Origin Checkboxes-->
-      <div class="text-white">
-        <input type="checkbox" id="load-at-origin">
-        <label for="load-at-origin">Load model at origin</label>
-      </div>
-      <div class="text-white">
-        <input type="checkbox" id="auto-offset" checked hidden>
-        <label for="auto-offset" hidden>Automatically offset model</label>
+      <div class="text-white d-flex gap-2">
+        <label><input type="radio" name="placement" value="recorded" checked> As recorded</label>
+        <label><input type="radio" name="placement" value="origin"> Origin</label>
+        <label><input type="radio" name="placement" value="offset"> Auto offset</label>
       </div>
 
       <div class="ms-auto d-flex gap-2">

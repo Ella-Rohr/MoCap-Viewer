@@ -11,10 +11,6 @@ const infoButton = document.getElementById("info-button");
 const container = document.getElementById("viewer");
 const popup = document.getElementById("info-popup");
 
-//check boxes
-const loadAtOrigin = document.getElementById("load-at-origin");
-const autoOffset = document.getElementById("auto-offset");
-
 //scrubber
 const scrubber = document.getElementById("scrubber");
 const timeLabel = document.getElementById("time-label");
@@ -101,7 +97,7 @@ let isPlaying = false;
 const entries = [];
 const mixers = [];
 // automatic spacing for the models
-const SPACING = 1.5;
+const SPACING = 2;
 
 form.addEventListener("change", function(event) {
     //event.preventDefault(); // IMPORTANT!
@@ -268,21 +264,21 @@ function animate() {
 
 function placeEntry(entry, index) {
     const {group, model} = entry;
+    const mode = document.querySelector('input[name="placement"]:checked').value;
     group.position.set(0, 0, 0);
     model.updateMatrixWorld(true);
 
-    if (loadAtOrigin.checked) {
+    if (mode === "origin") {
         const box = new THREE.Box3().setFromObject(model);
         const c = box.getCenter(new THREE.Vector3());
         group.position.set(-c.x, 0, -c.z);
-    } else if (autoOffset.checked) {
-        let maxXVal = -Infinity;
-        entries.forEach((e) => {
-            if (e == entry) return;
-            const b = new THREE.Box3().setFromObject(e.group);
-            maxXVal = Math.max(maxXVal, b.max.x);
-        });
-        if (maxXVal !== -Infinity) group.position.x = maxXVal + SPACING;
+    } else if (mode === "offset") {
+        const n = entries.length - 1;
+        if (n > 0) {
+            const side = n % 2 == 1 ? 1 :-1;
+            const steps = Math.ceil(n / 2);
+            group.position.x = side * steps * SPACING;
+        }
     }
 }
 
