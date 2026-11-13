@@ -22,10 +22,17 @@ let currentTime = 0;
 let duration = 0;
 let wasPlaying = false;
 let SPEED = 1;
+
 //speed select
-const speedSelect = document.getElementById("speed-select");
-speedSelect.addEventListener("change", () => {
-    SPEED = parseFloat(speedSelect.value);
+const speedInput = document.getElementById("speed-input");
+speedInput.addEventListener("input", () => {
+    const v = parseFloat(speedInput.value);
+    if (!isNaN(v) && v > 0) {
+        SPEED = Math.min(v, 10);
+    }
+});
+speedInput.addEventListener("blur", () => {
+    speedInput.value = SPEED;
 });
 
 function updateLabel() {

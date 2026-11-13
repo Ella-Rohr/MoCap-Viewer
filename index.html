@@ -22,7 +22,7 @@
     <div id="info-popup" hidden>
       <h5>MoCap Viewer Help:</h5>
       <p>Upload a .glb file by selecting Upload File and using the play and pause buttons.</p>
-      <h6>How to pan the viewer</h6>
+      <h6>How to Pan the Viewer</h6>
       <ul>
         <li>Hold down on the left mouse to rotate around the model.</li>
         <li>Hold down on the right mouse to pan around the model.</li>
@@ -35,6 +35,8 @@
         If you would prefer for both models to start at
         the origin select the "Load model at origin" box and
         upload a new file.</p>
+      <h6>Speed</h6>
+      <p>To increase or decrease the speed of the animation, input any number into the "Speed" box. The default value is 1.</p>
       <p>To close select the ? again.</p>
     </div>
 
@@ -63,24 +65,11 @@
         <button type="button" class="btn btn-primary" onclick="window.location.reload();">Clear</button>
       </div>
 
-      <div>
-        <label for="speed-select">Speed</label>
-        <select id="speed-select" class="form-select-sm" style="width: auto;">
-          <option value="0.25">0.25x</option>
-          <option value="2">0.5x</option>
-          <option value="2.5" selected>1x</option>
-          <option value="3">1.5x</option>
-          <option value="3.5">2x</option>
-          <option value="4">3x</option>
-          <option value="4.5">4x</option>
-        </select>
-
+      <div class="d-flex align-items-center gap-1 text-white">
+        <span>Speed</span>
+        <input type="number" id="speed-input" class="form-control form-control-sm"
+              min="0.05" max="10" step="0.05" value="1" autocomplete="off" style="width: 80px;">
       </div>
-
-      <div class="ms-auto d-flex gap-2">
-        <button type="button" id="info-button" class="btn btn-primary">?</button>
-      </div>
-
 
       <!--Origin Checkboxes-->
       <div class="text-white">
@@ -91,6 +80,12 @@
         <input type="checkbox" id="auto-offset" checked hidden>
         <label for="auto-offset" hidden>Automatically offset model</label>
       </div>
+
+      <div class="ms-auto d-flex gap-2">
+        <button type="button" id="info-button" class="btn btn-primary">?</button>
+      </div>
+
+
     </div>
     <script type="module" src="index.js"></script>
   </body>
