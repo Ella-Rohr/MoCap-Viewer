@@ -34,6 +34,7 @@ body {
 html, body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 body {
@@ -52,18 +53,24 @@ body {
   height: 100%;
 }
 
+#viewer {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
 #file-input {
   flex-shrink: 0; /* bar keeps its natural height */
 }
 .padded-up {
-        padding-right: 350px;
+        padding-right: 5px;
 }
 
 .lefting {
-        padding-left: 450px;
+        padding-left: 200px;
 }
 .lefting-less {
-        padding-left: 400px;
+        padding-left: 0;
 }
 .viewer canvas {
   display: block;
@@ -73,7 +80,7 @@ position: absolute;
 top: 1rem;
 left: 50%;
 transform: translateX(-50%);
-max-width: 320px;
+max-width: 600px;
 padding: 1rem;
 background: rgba(33, 37, 41, 0.92);
 color: white;

@@ -29,8 +29,16 @@
         <li>Pinch or scroll to zoom in and out.</li>
         <li>Use the Gizmo in the bottom right to rotate around the model.</li>
       </ul>
+      <h6>Load Model at Origin</h6>
+      <p>The viewer Automatically will offset another model
+        if you choose to add one to the scene.
+        If you would prefer for both models to start at
+        the origin select the "Load model at origin" box and
+        upload a new file.</p>
       <p>To close select the ? again.</p>
     </div>
+
+    <!--Upload a file button-->
     <div id="file-input" class="container-fluid bg-dark text-white p-3 shadow d-flex flex-wrap align-items-center gap-3">
       <h1 class="padded-up">Mocap Viewer</h1>
       <form id="file-form" class="footer">
@@ -39,6 +47,14 @@
         </label>
         <input type="file" id="mocapFile" name="filename" accept=".glb,.gltf" style="display: none;">
       </form>
+
+      <!--Scrubber-->
+      <div class="d-flex align-items-center gap-2">
+        <input type="range" id="scrubber" min="0" max="1" step="0.001" value="0" disabled style="width: 300px; max-width: 30w;">
+        <span id="time-label" class="text-white">0.0 / 0.0s</span>
+      </div>
+
+      <!--Pause and play buttons-->
       <div class="d-flex justify-content-center gap-2">
         <button type="button" id="play-button" class="btn btn-primary" disabled>Play</button>
         <button type="button" id="pause-button" class="btn btn-primary" disabled>Pause</button>
@@ -46,8 +62,34 @@
       <div class="lefting-less d-flex gap-2">
         <button type="button" class="btn btn-primary" onclick="window.location.reload();">Clear</button>
       </div>
-      <div class=" d-flex gap-2">
+
+      <div>
+        <label for="speed-select">Speed</label>
+        <select id="speed-select" class="form-select-sm" style="width: auto;">
+          <option value="0.25">0.25x</option>
+          <option value="2">0.5x</option>
+          <option value="2.5" selected>1x</option>
+          <option value="3">1.5x</option>
+          <option value="3.5">2x</option>
+          <option value="4">3x</option>
+          <option value="4.5">4x</option>
+        </select>
+
+      </div>
+
+      <div class="ms-auto d-flex gap-2">
         <button type="button" id="info-button" class="btn btn-primary">?</button>
+      </div>
+
+
+      <!--Origin Checkboxes-->
+      <div class="text-white">
+        <input type="checkbox" id="load-at-origin">
+        <label for="load-at-origin">Load model at origin</label>
+      </div>
+      <div class="text-white">
+        <input type="checkbox" id="auto-offset" checked hidden>
+        <label for="auto-offset" hidden>Automatically offset model</label>
       </div>
     </div>
     <script type="module" src="index.js"></script>
